@@ -33,4 +33,8 @@
     <dimen name="extra_small_size">8sp</dimen>
     <dimen name="double_extra_small_size">6sp</dimen>
     <dimen name="triple_extra_small_size">4sp</dimen>
+
+    <!-- card view image  -->
+    <dimen name="card_view_width">120dp</dimen>
+    <dimen name="card_view_height">75dp</dimen>
 </resources>
