@@ -13,4 +13,14 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- app title text -->
+    <style name="TitleText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/essential_color</item>
+        <item name="android:textSize">@dimen/double_extra_large_size</item>
+    </style>
+
+    <style name="CardText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/medium_size</item>
+    </style>
 </resources>
