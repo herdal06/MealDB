@@ -105,10 +105,14 @@ dependencies {
     // rv epoxy
     implementation Libs.RecyclerView.epoxy
     annotationProcessor Libs.RecyclerView.epoxyProcessor
-
+    implementation "com.airbnb.android:epoxy-databinding:5.1.1"
     // Lottie
     implementation Libs.View.lottie
 
     // Shimmer effect
     implementation Libs.View.shimmerEffect
+}
+
+kapt {
+    correctErrorTypes = true
 }
