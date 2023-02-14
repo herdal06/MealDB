@@ -15,20 +15,25 @@
         android:layout_height="wrap_content"
         android:text="@string/categories" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/tvCategoryErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error" />
+
+    <ProgressBar
+        android:id="@+id/pbCategory"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/rvCategories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_category">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <SearchView
-        android:id="@+id/svMeals"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        tools:listitem="@layout/item_category" />
 
     <TextView
         android:id="@+id/textView"
