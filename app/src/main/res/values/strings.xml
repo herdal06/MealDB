@@ -9,4 +9,6 @@
     <string name="error">Error!</string>
     <string name="see_all">See All</string>
     <string name="favorite">favorite</string>
+    <string name="see_more">See More</string>
+    <string name="category_image">category image</string>
 </resources>

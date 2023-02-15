@@ -20,4 +20,9 @@
         android:name="com.herdal.mealdb.presentation.favorite_meals.FavoriteMealsFragment"
         android:label="Favorite Meals"
         tools:layout="@layout/fragment_favorite_meals" />
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.herdal.mealdb.presentation.categories.CategoriesFragment"
+        android:label="Meal Categories"
+        tools:layout="@layout/fragment_categories" />
 </navigation>
