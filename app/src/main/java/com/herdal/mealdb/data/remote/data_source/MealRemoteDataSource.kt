@@ -12,8 +12,8 @@ class MealRemoteDataSource @Inject constructor(
     private val mealService: MealService,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : MealDataSource.Remote {
-    override suspend fun getMeals(): MealResponse =
+    override suspend fun getMeals(category: String): MealResponse =
         withContext(ioDispatcher) {
-            mealService.getMeals()
+            mealService.getMeals(category)
         }
 }

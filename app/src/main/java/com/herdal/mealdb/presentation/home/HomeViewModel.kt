@@ -28,6 +28,8 @@ class HomeViewModel @Inject constructor(
         MutableStateFlow<Resource<List<MealUiModel>>>(Resource.Loading())
     val meals: StateFlow<Resource<List<MealUiModel>>> = _meals
 
+    var category: String = "Beef"
+
     fun getAllCategories() {
         getCategoriesUseCase.invoke()
             .onEach { resource ->
@@ -48,7 +50,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getAllMeals() {
-        getMealsUseCase.invoke()
+        getMealsUseCase.invoke(category = category)
             .onEach { resource ->
                 when (resource) {
                     is Resource.Loading -> {

@@ -9,7 +9,8 @@ import com.herdal.mealdb.utils.ext.hide
 import com.herdal.mealdb.utils.ext.show
 
 data class CategoryEpoxyModel(
-    val category: CategoryUiModel
+    val category: CategoryUiModel,
+    private val onClickCategory: ((category: CategoryUiModel) -> Unit)?
 ) : ViewBindingKotlinModel<ItemCategoryBinding>(R.layout.item_category) {
     override fun ItemCategoryBinding.bind() {
         pbCategoryItem.show()
@@ -21,5 +22,9 @@ data class CategoryEpoxyModel(
         pbCategoryItem.hide()
         ivCategory.show()
         tvCategoryName.show()
+
+        root.setOnClickListener {
+            onClickCategory?.invoke(category)
+        }
     }
 }

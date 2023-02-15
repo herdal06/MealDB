@@ -12,6 +12,7 @@ import com.herdal.mealdb.R
 import com.herdal.mealdb.presentation.home.epoxy.CategoryEpoxyController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentHomeBinding
+import com.herdal.mealdb.domain.uimodel.CategoryUiModel
 import com.herdal.mealdb.presentation.home.epoxy.MealEpoxyController
 import com.herdal.mealdb.utils.ext.hide
 import com.herdal.mealdb.utils.ext.show
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val categoryEpoxyController: CategoryEpoxyController by lazy {
-        CategoryEpoxyController()
+        CategoryEpoxyController(::onClickCategory)
     }
 
     private val mealEpoxyController: MealEpoxyController by lazy {
@@ -55,7 +56,7 @@ class HomeFragment : Fragment() {
         goToCategoriesScreen()
     }
 
-    private fun goToCategoriesScreen()= binding.apply {
+    private fun goToCategoriesScreen() = binding.apply {
         tvSeeAllCategories.setOnClickListener {
             findNavController().navigate(R.id.categoriesFragment)
         }
@@ -114,6 +115,13 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun onClickCategory(category: CategoryUiModel) = binding.apply {
+        viewModel.category = category.name
+        rvMeals.hide()
+        collectMeals()
+        rvMeals.show()
     }
 
     override fun onDestroyView() {

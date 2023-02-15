@@ -13,10 +13,10 @@ import javax.inject.Inject
 class GetMealsUseCase @Inject constructor(
     private val mealRepository: MealRepository
 ) {
-    operator fun invoke(): Flow<Resource<List<MealUiModel>>> = flow {
+    operator fun invoke(category: String): Flow<Resource<List<MealUiModel>>> = flow {
         try {
             emit(Resource.Loading())
-            val meals = mealRepository.getMeals()
+            val meals = mealRepository.getMeals(category = category)
             Timber.d("$meals")
             emit(Resource.Success(data = meals))
         } catch (e: IOException) {
