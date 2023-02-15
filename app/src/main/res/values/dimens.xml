@@ -40,4 +40,7 @@
 
     <dimen name="item_meal_iv_width">200dp</dimen>
     <dimen name="item_meal_iv_height">200dp</dimen>
+
+    <dimen name="item_meal_fav_icon_radius">45dp</dimen>
+
 </resources>
