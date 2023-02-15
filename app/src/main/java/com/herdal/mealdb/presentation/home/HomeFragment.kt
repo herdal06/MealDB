@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.herdal.mealdb.presentation.home.epoxy.CategoryEpoxyController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentHomeBinding
+import com.herdal.mealdb.presentation.home.epoxy.MealEpoxyController
 import com.herdal.mealdb.utils.ext.hide
 import com.herdal.mealdb.utils.ext.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,10 @@ class HomeFragment : Fragment() {
         CategoryEpoxyController()
     }
 
+    private val mealEpoxyController: MealEpoxyController by lazy {
+        MealEpoxyController()
+    }
+
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -38,6 +43,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         collectCategories()
+        collectMeals()
         return view
     }
 
@@ -48,6 +54,7 @@ class HomeFragment : Fragment() {
 
     private fun setupEpoxyController() = binding.apply {
         rvCategories.setController(categoryEpoxyController)
+        rvMeals.setController(mealEpoxyController)
     }
 
     private fun collectCategories() = binding.apply {
@@ -75,9 +82,35 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun collectMeals() = binding.apply {
+        lifecycleScope.launchWhenStarted {
+            viewModel.getAllMeals()
+            viewModel.meals.collectLatest { resource ->
+                when (resource) {
+                    is Resource.Loading -> {
+                        tvMealErrorMessage.hide()
+                        rvMeals.hide()
+                    }
+                    is Resource.Success -> {
+                        tvMealErrorMessage.hide()
+                        pbMeals.hide()
+                        rvMeals.show()
+                        mealEpoxyController.setData(resource.data)
+                    }
+                    is Resource.Error -> {
+                        tvMealErrorMessage.show()
+                        pbMeals.hide()
+                        rvMeals.hide()
+                    }
+                }
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding.rvCategories.adapter = null
+        binding.rvMeals.adapter = null
         _binding = null
     }
 }
