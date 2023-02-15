@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="category"
+            type="com.herdal.mealdb.domain.uimodel.CategoryUiModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewCategories"
+        android:layout_width="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_margin="@dimen/large_margin"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_padding">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivCategory"
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/category_image"
+                android:downloadImage="@{category.thumbnail}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tvCategoryName"
+                style="@style/TitleText.XLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{category.name}"
+                app:layout_constraintStart_toEndOf="@+id/ivCategory"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCategoryDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@{category.description}"
+                style="@style/CardText"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivCategory" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="8dp"
+                android:background="#88888888"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCategoryDescription" />
+
+            <ImageButton
+                android:id="@+id/ibExpand"
+                android:layout_width="wrap_content"
+                android:contentDescription="@string/expand"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:src="@drawable/ic_expand_more"
+                android:layout_marginTop="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

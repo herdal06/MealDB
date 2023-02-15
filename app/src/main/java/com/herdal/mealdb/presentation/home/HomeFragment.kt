@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.herdal.mealdb.R
 import com.herdal.mealdb.presentation.home.epoxy.CategoryEpoxyController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentHomeBinding
@@ -50,6 +52,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupEpoxyController()
+        goToCategoriesScreen()
+    }
+
+    private fun goToCategoriesScreen()= binding.apply {
+        tvSeeAllCategories.setOnClickListener {
+            findNavController().navigate(R.id.categoriesFragment)
+        }
     }
 
     private fun setupEpoxyController() = binding.apply {
