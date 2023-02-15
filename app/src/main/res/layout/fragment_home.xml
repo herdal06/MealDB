@@ -1,53 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/extra_small_margin"
-    android:orientation="vertical"
-    tools:context=".presentation.home.HomeFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvCategoryText"
-        style="@style/TitleText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/categories" />
+        android:background="@color/bgColor"
+        android:orientation="vertical"
+        android:padding="@dimen/extra_small_margin"
+        tools:context=".presentation.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/tvCategoryErrorMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/error" />
+        <TextView
+            android:id="@+id/tvCategoryText"
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/categories" />
 
-    <ProgressBar
-        android:id="@+id/pbCategory"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvCategoryErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error" />
 
-    <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/rvCategories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_category" />
+        <ProgressBar
+            android:id="@+id/pbCategory"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/TitleText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/meals" />
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/rvCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_category" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMeals"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/item_meal" />
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meals" />
 
-</LinearLayout>
+        <ProgressBar
+            android:id="@+id/pbMeals"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvMealErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/error" />
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/rvMeals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_meal" />
+
+    </LinearLayout>
+</ScrollView>
