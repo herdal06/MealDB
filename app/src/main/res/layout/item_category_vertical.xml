@@ -64,13 +64,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCategoryDescription" />
 
-            <TextView
-                android:id="@+id/btnExpand"
+            <ImageButton
+                android:id="@+id/ibExpand"
                 android:layout_width="wrap_content"
+                android:contentDescription="@string/expand"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:src="@drawable/ic_expand_more"
                 android:layout_marginTop="6dp"
-                android:text="@string/see_more"
-                style="@style/TitleText.Large"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
