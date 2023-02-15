@@ -29,8 +29,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view_fav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/double_extra_small_margin"
+            app:cardCornerRadius="@dimen/item_meal_fav_icon_radius"
+            app:layout_constraintEnd_toEndOf="@+id/ivAddToFav"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:background="@color/white"
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/triple_extra_small_padding"
+                android:contentDescription="@string/favorite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivCard"
+                app:srcCompat="@drawable/ic_favorite_border_essential" />
+        </com.google.android.material.card.MaterialCardView>
         <TextView
             android:id="@+id/tvMealName"
             style="@style/CardText"
