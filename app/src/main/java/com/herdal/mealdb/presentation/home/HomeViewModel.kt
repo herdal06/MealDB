@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.domain.uimodel.CategoryUiModel
+import com.herdal.mealdb.domain.uimodel.MealUiModel
 import com.herdal.mealdb.domain.use_case.category.GetCategoriesUseCase
+import com.herdal.mealdb.domain.use_case.meal.GetMealsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,12 +16,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val getMealsUseCase: GetMealsUseCase
 ) : ViewModel() {
 
     private val _categories =
         MutableStateFlow<Resource<List<CategoryUiModel>>>(Resource.Loading())
     val categories: StateFlow<Resource<List<CategoryUiModel>>> = _categories
+
+    private val _meals =
+        MutableStateFlow<Resource<List<MealUiModel>>>(Resource.Loading())
+    val meals: StateFlow<Resource<List<MealUiModel>>> = _meals
 
     fun getAllCategories() {
         getCategoriesUseCase.invoke()
@@ -35,6 +42,25 @@ class HomeViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         _categories.value = Resource.Error(resource.message)
+                    }
+                }
+            }.launchIn(viewModelScope)
+    }
+
+    fun getAllMeals() {
+        getMealsUseCase.invoke()
+            .onEach { resource ->
+                when (resource) {
+                    is Resource.Loading -> {
+                        _meals.value = Resource.Loading()
+                    }
+                    is Resource.Success -> {
+                        if (resource.data != null) {
+                            _meals.value = Resource.Success(resource.data)
+                        }
+                    }
+                    is Resource.Error -> {
+                        _meals.value = Resource.Error(resource.message)
                     }
                 }
             }.launchIn(viewModelScope)

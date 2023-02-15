@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
+    app:cardCornerRadius="10dp"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/extra_small_margin"
     android:layout_marginEnd="@dimen/extra_small_margin">
@@ -12,29 +13,44 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivMeal"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ivCard"
+            app:cardCornerRadius="@dimen/small_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivMeal"
+                android:layout_width="@dimen/item_meal_iv_width"
+                android:layout_height="@dimen/item_meal_iv_height"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/tvMealName"
             style="@style/CardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="@dimen/extra_small_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivMeal" />
+            app:layout_constraintTop_toBottomOf="@+id/ivCard" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivAddToFav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivMeal"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_favorite_border_essential" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
