@@ -2,6 +2,7 @@ package com.herdal.mealdb.data.remote.data_source
 
 import com.herdal.mealdb.data.data_source.MealDataSource
 import com.herdal.mealdb.data.remote.dto.meal.MealResponse
+import com.herdal.mealdb.data.remote.dto.meal_detail.MealDetailResponse
 import com.herdal.mealdb.data.remote.service.MealService
 import com.herdal.mealdb.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,5 +21,10 @@ class MealRemoteDataSource @Inject constructor(
     override suspend fun searchMeals(query: String): MealResponse =
         withContext(ioDispatcher) {
             mealService.searchMeals(query)
+        }
+
+    override suspend fun getMealDetails(id: Int): MealDetailResponse =
+        withContext(ioDispatcher) {
+            mealService.getMealDetails(id)
         }
 }
