@@ -26,7 +26,7 @@ class SearchMealsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mealEpoxyController: MealEpoxyController by lazy {
-        MealEpoxyController()
+        MealEpoxyController(::onMealClick)
     }
 
     private val viewModel: SearchMealsViewModel by viewModels()
@@ -89,6 +89,10 @@ class SearchMealsFragment : Fragment() {
 
     private fun setupEpoxyController() = binding.apply {
         rvSearchedMeals.setController(mealEpoxyController)
+    }
+
+    private fun onMealClick(mealId: Int) {
+        TODO()
     }
 
     override fun onDestroyView() {
