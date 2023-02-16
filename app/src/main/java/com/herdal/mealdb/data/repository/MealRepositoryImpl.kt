@@ -10,7 +10,7 @@ class MealRepositoryImpl @Inject constructor(
     private val remote: MealDataSource.Remote,
     private val mealDtoMapper: MealDtoMapper,
 ) : MealRepository {
-    override suspend fun getMeals(): List<MealUiModel> {
-        return mealDtoMapper.toDomainList(remote.getMeals().meals)
+    override suspend fun getMeals(category: String): List<MealUiModel> {
+        return mealDtoMapper.toDomainList(remote.getMeals(category).meals)
     }
 }

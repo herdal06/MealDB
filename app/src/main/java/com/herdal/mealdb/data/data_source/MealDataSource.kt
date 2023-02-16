@@ -4,7 +4,7 @@ import com.herdal.mealdb.data.remote.dto.meal.MealResponse
 
 interface MealDataSource {
     interface Remote {
-        suspend fun getMeals(): MealResponse
+        suspend fun getMeals(category: String): MealResponse
     }
 
     interface Local {
