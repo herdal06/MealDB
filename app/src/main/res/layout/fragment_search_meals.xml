@@ -26,11 +26,27 @@
             app:queryHint="@string/search_meals" />
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ProgressBar
+        android:id="@+id/pbSearch"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/tvSearchError"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:text="@string/error" />
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/rvSearchedMeals"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/item_meal" />
+
 </LinearLayout>
