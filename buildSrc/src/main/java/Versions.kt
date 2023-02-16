@@ -1,5 +1,5 @@
 object Versions {
-    const val coreKtx = "1.7.0"
+    const val coreKtx = "1.9.0"
     const val appCompat = "1.5.1"
     const val material = "1.7.0"
     const val constraint = "2.1.4"
