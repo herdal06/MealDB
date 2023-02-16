@@ -28,6 +28,6 @@
     <fragment
         android:id="@+id/searchMealsFragment"
         android:name="com.herdal.mealdb.presentation.search_meals.SearchMealsFragment"
-        android:label="fragment_search_meals"
+        android:label="Search Meals"
         tools:layout="@layout/fragment_search_meals" />
 </navigation>
