@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.herdal.mealdb.presentation.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.herdal.mealdb.presentation.settings.SettingsFragment"
@@ -29,5 +33,18 @@
         android:id="@+id/searchMealsFragment"
         android:name="com.herdal.mealdb.presentation.search_meals.SearchMealsFragment"
         android:label="Search Meals"
-        tools:layout="@layout/fragment_search_meals" />
+        tools:layout="@layout/fragment_search_meals" >
+        <action
+            android:id="@+id/action_searchMealsFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.herdal.mealdb.presentation.meal_details.MealDetailsFragment"
+        android:label="Meal Details"
+        tools:layout="@layout/fragment_meal_details" >
+        <argument
+            android:name="mealId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

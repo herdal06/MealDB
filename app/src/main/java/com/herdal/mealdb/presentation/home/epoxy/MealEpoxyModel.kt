@@ -9,7 +9,8 @@ import com.herdal.mealdb.utils.ext.hide
 import com.herdal.mealdb.utils.ext.show
 
 data class MealEpoxyModel(
-    val meal:MealUiModel
+    val meal: MealUiModel,
+    private val onClickMeal: ((mealId: Int) -> Unit)?
 ) : ViewBindingKotlinModel<ItemMealBinding>(R.layout.item_meal) {
     override fun ItemMealBinding.bind() {
         ivMeal.hide()
@@ -19,5 +20,7 @@ data class MealEpoxyModel(
             .centerCrop().into(ivMeal)
         ivMeal.show()
         tvMealName.show()
+
+        root.setOnClickListener { onClickMeal?.let { it1 -> it1(meal.id.toInt()) } }
     }
 }

@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
     }
 
     private val mealEpoxyController: MealEpoxyController by lazy {
-        MealEpoxyController()
+        MealEpoxyController(::onMealClick)
     }
 
     private val viewModel: HomeViewModel by viewModels()
@@ -122,6 +122,11 @@ class HomeFragment : Fragment() {
         rvMeals.hide()
         collectMeals()
         rvMeals.show()
+    }
+
+    private fun onMealClick(mealId: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealId = mealId)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
