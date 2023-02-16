@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentSearchMealsBinding
 import com.herdal.mealdb.presentation.home.epoxy.MealEpoxyController
@@ -92,7 +93,9 @@ class SearchMealsFragment : Fragment() {
     }
 
     private fun onMealClick(mealId: Int) {
-        TODO()
+        val action =
+            SearchMealsFragmentDirections.actionSearchMealsFragmentToMealDetailsFragment(mealId = mealId)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
