@@ -42,5 +42,8 @@
     <dimen name="item_meal_iv_height">200dp</dimen>
 
     <dimen name="item_meal_fav_icon_radius">45dp</dimen>
+    <dimen name="meal_detail_thumb_height">200dp</dimen>
+
+    <dimen name="image_button_min_size">48dp</dimen>
 
 </resources>
