@@ -14,7 +14,7 @@ interface MealService {
     ): MealResponse
 
     @GET(ApiConstants.Endpoints.SEARCH_MEALS)
-    suspend fun searchMeal(
+    suspend fun searchMeals(
         @Query("s") query: String
     ): MealResponse
 

@@ -25,4 +25,9 @@
         android:name="com.herdal.mealdb.presentation.categories.CategoriesFragment"
         android:label="Meal Categories"
         tools:layout="@layout/fragment_categories" />
+    <fragment
+        android:id="@+id/searchMealsFragment"
+        android:name="com.herdal.mealdb.presentation.search_meals.SearchMealsFragment"
+        android:label="Search Meals"
+        tools:layout="@layout/fragment_search_meals" />
 </navigation>

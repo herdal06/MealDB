@@ -4,4 +4,5 @@ import com.herdal.mealdb.domain.uimodel.MealUiModel
 
 interface MealRepository {
     suspend fun getMeals(category: String): List<MealUiModel>
+    suspend fun searchMeals(query: String): List<MealUiModel>
 }

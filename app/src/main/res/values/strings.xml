@@ -12,4 +12,6 @@
     <string name="see_more">See More</string>
     <string name="category_image">category image</string>
     <string name="expand">expand</string>
+    <string name="search">Search</string>
+    <string name="search_meals">Search for meals…</string>
 </resources>

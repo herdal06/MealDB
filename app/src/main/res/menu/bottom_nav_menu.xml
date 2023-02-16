@@ -7,6 +7,10 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/searchMealsFragment"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search" />
+    <item
         android:id="@+id/favoriteMealsFragment"
         android:icon="@drawable/ic_favorite"
         android:title="@string/title_favorite_meals" />

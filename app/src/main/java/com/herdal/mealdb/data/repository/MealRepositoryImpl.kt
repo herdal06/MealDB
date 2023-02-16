@@ -13,4 +13,8 @@ class MealRepositoryImpl @Inject constructor(
     override suspend fun getMeals(category: String): List<MealUiModel> {
         return mealDtoMapper.toDomainList(remote.getMeals(category).meals)
     }
+
+    override suspend fun searchMeals(query: String): List<MealUiModel> {
+        return mealDtoMapper.toDomainList(remote.searchMeals(query).meals)
+    }
 }
