@@ -16,4 +16,9 @@ class MealRemoteDataSource @Inject constructor(
         withContext(ioDispatcher) {
             mealService.getMeals(category)
         }
+
+    override suspend fun searchMeals(query: String): MealResponse =
+        withContext(ioDispatcher) {
+            mealService.searchMeals(query)
+        }
 }
