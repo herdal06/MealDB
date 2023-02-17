@@ -27,4 +27,8 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideCategoryDao(db: AppDatabase) = db.categoryDao()
+
+    @Singleton
+    @Provides
+    fun provideFavoriteDao(db: AppDatabase) = db.favoriteDao()
 }
