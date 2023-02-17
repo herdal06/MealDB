@@ -29,5 +29,7 @@ data class MealEntity(
     @ColumnInfo(name = "thumbnail")
     val thumbnail: String,
     @ColumnInfo(name = "youtube_link")
-    val youtubeLink: String
+    val youtubeLink: String,
+    @ColumnInfo(name = "is_favorite")
+    var isFavorite: Boolean = false
 )

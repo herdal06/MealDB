@@ -7,7 +7,7 @@ import com.herdal.mealdb.data.local.entity.CategoryEntity
 
 @Database(
     entities = [CategoryEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
