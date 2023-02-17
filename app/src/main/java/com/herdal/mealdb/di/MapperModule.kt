@@ -2,6 +2,7 @@ package com.herdal.mealdb.di
 
 import com.herdal.mealdb.common.mapper.category.CategoryDtoMapper
 import com.herdal.mealdb.common.mapper.category.CategoryEntityMapper
+import com.herdal.mealdb.common.mapper.favorite.FavoriteEntityMapper
 import com.herdal.mealdb.common.mapper.meal.MealDtoMapper
 import com.herdal.mealdb.common.mapper.meal_details.MealDetailsDtoMapper
 import dagger.Module
@@ -32,4 +33,9 @@ object MapperModule {
     @Singleton
     fun provideMealDetailsDtoMapper(
     ): MealDetailsDtoMapper = MealDetailsDtoMapper()
+
+    @Provides
+    @Singleton
+    fun provideFavoriteEntityMapper(
+    ): FavoriteEntityMapper = FavoriteEntityMapper()
 }
