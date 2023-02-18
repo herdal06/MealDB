@@ -6,18 +6,26 @@ import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.domain.uimodel.CategoryUiModel
 import com.herdal.mealdb.domain.uimodel.MealUiModel
 import com.herdal.mealdb.domain.use_case.category.GetCategoriesUseCase
+import com.herdal.mealdb.domain.use_case.meal.AddOrRemoveFromFavoriteUseCase
 import com.herdal.mealdb.domain.use_case.meal.GetMealsUseCase
+import com.herdal.mealdb.domain.use_case.meal.IsMealInFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getMealsUseCase: GetMealsUseCase
+    private val getMealsUseCase: GetMealsUseCase,
+    private val addOrRemoveFromFavoriteUseCase: AddOrRemoveFromFavoriteUseCase,
+    private val isMealInFavoriteUseCase: IsMealInFavoriteUseCase,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     private val _categories =
@@ -66,5 +74,11 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }.launchIn(viewModelScope)
+    }
+
+    fun favoriteIconClicked(meal: MealUiModel) {
+        viewModelScope.launch(dispatcher) {
+            addOrRemoveFromFavoriteUseCase.execute(meal)
+        }
     }
 }

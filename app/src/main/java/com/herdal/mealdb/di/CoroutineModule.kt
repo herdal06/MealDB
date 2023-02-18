@@ -24,6 +24,8 @@ object CoroutinesModule {
     @Provides
     internal fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
+    @Provides
+    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 }
 
 @Retention(AnnotationRetention.BINARY)
