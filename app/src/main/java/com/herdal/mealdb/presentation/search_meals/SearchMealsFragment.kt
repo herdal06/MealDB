@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentSearchMealsBinding
+import com.herdal.mealdb.domain.uimodel.MealUiModel
 import com.herdal.mealdb.presentation.home.epoxy.MealEpoxyController
 import com.herdal.mealdb.utils.ext.hide
 import com.herdal.mealdb.utils.ext.show
@@ -27,7 +28,7 @@ class SearchMealsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mealEpoxyController: MealEpoxyController by lazy {
-        MealEpoxyController(::onMealClick)
+        MealEpoxyController(::onMealClick,::onFavoriteIconClicked)
     }
 
     private val viewModel: SearchMealsViewModel by viewModels()
@@ -96,6 +97,10 @@ class SearchMealsFragment : Fragment() {
         val action =
             SearchMealsFragmentDirections.actionSearchMealsFragmentToMealDetailsFragment(mealId = mealId)
         findNavController().navigate(action)
+    }
+
+    private fun onFavoriteIconClicked(meal: MealUiModel) {
+        TODO()
     }
 
     override fun onDestroyView() {

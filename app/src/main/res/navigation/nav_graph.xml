@@ -23,7 +23,11 @@
         android:id="@+id/favoriteMealsFragment"
         android:name="com.herdal.mealdb.presentation.favorite_meals.FavoriteMealsFragment"
         android:label="Favorite Meals"
-        tools:layout="@layout/fragment_favorite_meals" />
+        tools:layout="@layout/fragment_favorite_meals" >
+        <action
+            android:id="@+id/action_favoriteMealsFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.herdal.mealdb.presentation.categories.CategoriesFragment"
