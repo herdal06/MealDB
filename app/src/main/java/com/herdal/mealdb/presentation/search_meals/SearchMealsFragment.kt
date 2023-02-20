@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentSearchMealsBinding
@@ -28,7 +30,7 @@ class SearchMealsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mealEpoxyController: MealEpoxyController by lazy {
-        MealEpoxyController(::onMealClick,::onFavoriteIconClicked)
+        MealEpoxyController(::onMealClick, ::onFavoriteIconClicked)
     }
 
     private val viewModel: SearchMealsViewModel by viewModels()
@@ -50,25 +52,27 @@ class SearchMealsFragment : Fragment() {
     }
 
     private fun searchMeals(searchText: String) = binding.apply {
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.searchMeals(searchText)
-            viewModel.searchedMeals.collectLatest { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        pbSearch.show()
-                        tvSearchError.hide()
-                        rvSearchedMeals.hide()
-                    }
-                    is Resource.Success -> {
-                        tvSearchError.hide()
-                        pbSearch.hide()
-                        rvSearchedMeals.show()
-                        mealEpoxyController.setData(resource.data)
-                    }
-                    is Resource.Error -> {
-                        tvSearchError.show()
-                        pbSearch.hide()
-                        rvSearchedMeals.hide()
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.searchedMeals.collectLatest { resource ->
+                    when (resource) {
+                        is Resource.Loading -> {
+                            pbSearch.show()
+                            tvSearchError.hide()
+                            rvSearchedMeals.hide()
+                        }
+                        is Resource.Success -> {
+                            tvSearchError.hide()
+                            pbSearch.hide()
+                            rvSearchedMeals.show()
+                            mealEpoxyController.setData(resource.data)
+                        }
+                        is Resource.Error -> {
+                            tvSearchError.show()
+                            pbSearch.hide()
+                            rvSearchedMeals.hide()
+                        }
                     }
                 }
             }
@@ -105,6 +109,8 @@ class SearchMealsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvSearchedMeals.adapter = null
+        mealEpoxyController.setData(emptyList())
         _binding = null
     }
 }

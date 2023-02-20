@@ -68,6 +68,7 @@ class FavoriteMealsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding.rvFavoriteMeals.adapter = null
+        favoriteMealsEpoxyController.setData(emptyList())
         _binding = null
     }
 }

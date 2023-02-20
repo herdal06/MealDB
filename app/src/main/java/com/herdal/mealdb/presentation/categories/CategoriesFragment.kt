@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentCategoriesBinding
 import com.herdal.mealdb.domain.uimodel.CategoryUiModel
@@ -52,24 +54,26 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun collectCategories() = binding.apply {
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.getAllCategories()
-            viewModel.categories.collectLatest { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        tvCategoryError.hide()
-                        rvAllCategories.hide()
-                    }
-                    is Resource.Success -> {
-                        tvCategoryError.hide()
-                        pbCategories.hide()
-                        rvAllCategories.show()
-                        categoryAdapter.submitList(resource.data)
-                    }
-                    is Resource.Error -> {
-                        tvCategoryError.show()
-                        pbCategories.hide()
-                        rvAllCategories.hide()
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.categories.collectLatest { resource ->
+                    when (resource) {
+                        is Resource.Loading -> {
+                            tvCategoryError.hide()
+                            rvAllCategories.hide()
+                        }
+                        is Resource.Success -> {
+                            tvCategoryError.hide()
+                            pbCategories.hide()
+                            rvAllCategories.show()
+                            categoryAdapter.submitList(resource.data)
+                        }
+                        is Resource.Error -> {
+                            tvCategoryError.show()
+                            pbCategories.hide()
+                            rvAllCategories.hide()
+                        }
                     }
                 }
             }
@@ -82,6 +86,7 @@ class CategoriesFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvAllCategories.adapter = null
         _binding = null
     }
 }

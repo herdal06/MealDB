@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.R
 import com.herdal.mealdb.common.Resource
@@ -69,24 +71,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun collectCategories() = binding.apply {
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.getAllCategories()
-            viewModel.categories.collectLatest { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        tvCategoryErrorMessage.hide()
-                        rvCategories.hide()
-                    }
-                    is Resource.Success -> {
-                        tvCategoryErrorMessage.hide()
-                        pbCategory.hide()
-                        rvCategories.show()
-                        categoryEpoxyController.setData(resource.data)
-                    }
-                    is Resource.Error -> {
-                        tvCategoryErrorMessage.show()
-                        pbCategory.hide()
-                        rvCategories.hide()
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.categories.collectLatest { resource ->
+                    when (resource) {
+                        is Resource.Loading -> {
+                            tvCategoryErrorMessage.hide()
+                            rvCategories.hide()
+                        }
+                        is Resource.Success -> {
+                            tvCategoryErrorMessage.hide()
+                            pbCategory.hide()
+                            rvCategories.show()
+                            categoryEpoxyController.setData(resource.data)
+                        }
+                        is Resource.Error -> {
+                            tvCategoryErrorMessage.show()
+                            pbCategory.hide()
+                            rvCategories.hide()
+                        }
                     }
                 }
             }
@@ -94,24 +98,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun collectMeals() = binding.apply {
-        lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.getAllMeals()
-            viewModel.meals.collectLatest { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        tvMealErrorMessage.hide()
-                        rvMeals.hide()
-                    }
-                    is Resource.Success -> {
-                        tvMealErrorMessage.hide()
-                        pbMeals.hide()
-                        rvMeals.show()
-                        mealEpoxyController.setData(resource.data)
-                    }
-                    is Resource.Error -> {
-                        tvMealErrorMessage.show()
-                        pbMeals.hide()
-                        rvMeals.hide()
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.meals.collectLatest { resource ->
+                    when (resource) {
+                        is Resource.Loading -> {
+                            tvMealErrorMessage.hide()
+                            rvMeals.hide()
+                        }
+                        is Resource.Success -> {
+                            tvMealErrorMessage.hide()
+                            pbMeals.hide()
+                            rvMeals.show()
+                            mealEpoxyController.setData(resource.data)
+                        }
+                        is Resource.Error -> {
+                            tvMealErrorMessage.show()
+                            pbMeals.hide()
+                            rvMeals.hide()
+                        }
                     }
                 }
             }
@@ -138,6 +144,8 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         binding.rvCategories.adapter = null
         binding.rvMeals.adapter = null
+        categoryEpoxyController.setData(emptyList())
+        mealEpoxyController.setData(emptyList())
         _binding = null
     }
 }
