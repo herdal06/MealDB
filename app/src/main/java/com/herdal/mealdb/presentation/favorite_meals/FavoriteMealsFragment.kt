@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.databinding.FragmentFavoriteMealsBinding
 import com.herdal.mealdb.domain.uimodel.MealUiModel
@@ -39,9 +42,13 @@ class FavoriteMealsFragment : Fragment() {
     }
 
     private fun observeFavoriteMeals() {
-        viewModel.favoriteMeals.observe(viewLifecycleOwner) { meals ->
-            meals.let {
-                favoriteMealsEpoxyController.setData(it)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favoriteMeals.observe(viewLifecycleOwner) { meals ->
+                    meals.let {
+                        favoriteMealsEpoxyController.setData(it)
+                    }
+                }
             }
         }
     }
