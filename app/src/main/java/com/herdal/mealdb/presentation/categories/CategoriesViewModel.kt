@@ -6,10 +6,7 @@ import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.domain.uimodel.CategoryUiModel
 import com.herdal.mealdb.domain.use_case.category.GetCategoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +16,7 @@ class CategoriesViewModel @Inject constructor(
 
     private val _categories =
         MutableStateFlow<Resource<List<CategoryUiModel>>>(Resource.Loading())
-    val categories: StateFlow<Resource<List<CategoryUiModel>>> = _categories
+    val categories = _categories.asStateFlow()
 
     fun getAllCategories() {
         getCategoriesUseCase.invoke()

@@ -6,10 +6,7 @@ import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.domain.uimodel.MealDetailUiModel
 import com.herdal.mealdb.domain.use_case.meal.GetMealDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +16,7 @@ class MealDetailsViewModel @Inject constructor(
 
     private val _meal =
         MutableStateFlow<Resource<MealDetailUiModel>>(Resource.Loading())
-    val meal: StateFlow<Resource<MealDetailUiModel>> = _meal
+    val meal = _meal.asStateFlow()
 
     fun getMealById(id: Int) {
         getMealDetailsUseCase.invoke(id)

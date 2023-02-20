@@ -6,10 +6,7 @@ import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.domain.uimodel.MealUiModel
 import com.herdal.mealdb.domain.use_case.meal.SearchMealsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +16,7 @@ class SearchMealsViewModel @Inject constructor(
 
     private val _searchedMeals =
         MutableStateFlow<Resource<List<MealUiModel>>>(Resource.Loading())
-    val searchedMeals: StateFlow<Resource<List<MealUiModel>>> = _searchedMeals
+    val searchedMeals = _searchedMeals.asStateFlow()
 
     fun searchMeals(searchText: String) {
         searchMealsUseCase(query = searchText)

@@ -12,10 +12,7 @@ import com.herdal.mealdb.domain.use_case.meal.IsMealInFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,11 +27,11 @@ class HomeViewModel @Inject constructor(
 
     private val _categories =
         MutableStateFlow<Resource<List<CategoryUiModel>>>(Resource.Loading())
-    val categories: StateFlow<Resource<List<CategoryUiModel>>> = _categories
+    val categories = _categories.asStateFlow()
 
     private val _meals =
         MutableStateFlow<Resource<List<MealUiModel>>>(Resource.Loading())
-    val meals: StateFlow<Resource<List<MealUiModel>>> = _meals
+    val meals = _meals.asStateFlow()
 
     var category: String = "Beef"
 
