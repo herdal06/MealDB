@@ -124,10 +124,15 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun changeCategoryName(categoryName: String) = binding.apply {
+        tvCategoryMeal.text = categoryName
+    }
+
     private fun onClickCategory(category: CategoryUiModel) = binding.apply {
         viewModel.category = category.name
         rvMeals.hide()
         collectMeals()
+        changeCategoryName(category.name)
         rvMeals.show()
     }
 
