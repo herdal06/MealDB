@@ -4,5 +4,5 @@ data class MealUiModel(
     val id: String,
     val name: String,
     val thumbnail: String,
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean? = false
 )

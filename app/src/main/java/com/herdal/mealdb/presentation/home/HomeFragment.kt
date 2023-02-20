@@ -9,10 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.R
-import com.herdal.mealdb.presentation.home.epoxy.CategoryEpoxyController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentHomeBinding
 import com.herdal.mealdb.domain.uimodel.CategoryUiModel
+import com.herdal.mealdb.domain.uimodel.MealUiModel
+import com.herdal.mealdb.presentation.home.epoxy.CategoryEpoxyController
 import com.herdal.mealdb.presentation.home.epoxy.MealEpoxyController
 import com.herdal.mealdb.utils.ext.hide
 import com.herdal.mealdb.utils.ext.show
@@ -33,7 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     private val mealEpoxyController: MealEpoxyController by lazy {
-        MealEpoxyController(::onMealClick)
+        MealEpoxyController(::onMealClick, ::onFavoriteIconClicked)
     }
 
     private val viewModel: HomeViewModel by viewModels()
@@ -127,6 +128,10 @@ class HomeFragment : Fragment() {
     private fun onMealClick(mealId: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToMealDetailsFragment(mealId = mealId)
         findNavController().navigate(action)
+    }
+
+    private fun onFavoriteIconClicked(meal: MealUiModel) {
+        viewModel.favoriteIconClicked(meal)
     }
 
     override fun onDestroyView() {
