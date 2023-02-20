@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.R
 import com.herdal.mealdb.common.Resource
@@ -17,10 +14,8 @@ import com.herdal.mealdb.domain.uimodel.CategoryUiModel
 import com.herdal.mealdb.domain.uimodel.MealUiModel
 import com.herdal.mealdb.presentation.home.epoxy.CategoryEpoxyController
 import com.herdal.mealdb.presentation.home.epoxy.MealEpoxyController
-import com.herdal.mealdb.utils.ext.hide
-import com.herdal.mealdb.utils.ext.show
+import com.herdal.mealdb.utils.ext.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -71,54 +66,36 @@ class HomeFragment : Fragment() {
     }
 
     private fun collectCategories() = binding.apply {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.getAllCategories()
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.categories.collectLatest { resource ->
-                    when (resource) {
-                        is Resource.Loading -> {
-                            tvCategoryErrorMessage.hide()
-                            rvCategories.hide()
-                        }
-                        is Resource.Success -> {
-                            tvCategoryErrorMessage.hide()
-                            pbCategory.hide()
-                            rvCategories.show()
-                            categoryEpoxyController.setData(resource.data)
-                        }
-                        is Resource.Error -> {
-                            tvCategoryErrorMessage.show()
-                            pbCategory.hide()
-                            rvCategories.hide()
-                        }
-                    }
+        viewModel.getAllCategories()
+        collectLatestLifecycleFlow(viewModel.categories) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    loadingState(tvCategoryErrorMessage, pbCategory, rvCategories)
+                }
+                is Resource.Success -> {
+                    successState(tvCategoryErrorMessage, pbCategory, rvCategories)
+                    categoryEpoxyController.setData(resource.data)
+                }
+                is Resource.Error -> {
+                    errorState(tvCategoryErrorMessage, pbCategory, rvCategories)
                 }
             }
         }
     }
 
     private fun collectMeals() = binding.apply {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.getAllMeals()
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.meals.collectLatest { resource ->
-                    when (resource) {
-                        is Resource.Loading -> {
-                            tvMealErrorMessage.hide()
-                            rvMeals.hide()
-                        }
-                        is Resource.Success -> {
-                            tvMealErrorMessage.hide()
-                            pbMeals.hide()
-                            rvMeals.show()
-                            mealEpoxyController.setData(resource.data)
-                        }
-                        is Resource.Error -> {
-                            tvMealErrorMessage.show()
-                            pbMeals.hide()
-                            rvMeals.hide()
-                        }
-                    }
+        viewModel.getAllMeals()
+        collectLatestLifecycleFlow(viewModel.meals) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    loadingState(tvCategoryErrorMessage, pbCategory, rvCategories)
+                }
+                is Resource.Success -> {
+                    successState(tvCategoryErrorMessage, pbCategory, rvCategories)
+                    mealEpoxyController.setData(resource.data)
+                }
+                is Resource.Error -> {
+                    errorState(tvCategoryErrorMessage, pbCategory, rvCategories)
                 }
             }
         }
@@ -130,7 +107,7 @@ class HomeFragment : Fragment() {
 
     private fun onClickCategory(category: CategoryUiModel) = binding.apply {
         viewModel.category = category.name
-        rvMeals.hide()
+        rvMeals.gone()
         collectMeals()
         changeCategoryName(category.name)
         rvMeals.show()

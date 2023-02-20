@@ -6,7 +6,7 @@ import com.herdal.mealdb.R
 import com.herdal.mealdb.databinding.ItemMealBinding
 import com.herdal.mealdb.domain.uimodel.MealUiModel
 import com.herdal.mealdb.utils.ViewBindingKotlinModel
-import com.herdal.mealdb.utils.ext.hide
+import com.herdal.mealdb.utils.ext.gone
 import com.herdal.mealdb.utils.ext.show
 
 data class MealEpoxyModel(
@@ -15,8 +15,8 @@ data class MealEpoxyModel(
     val onFavoriteIconClicked: (MealUiModel) -> Unit
 ) : ViewBindingKotlinModel<ItemMealBinding>(R.layout.item_meal) {
     override fun ItemMealBinding.bind() {
-        ivMeal.hide()
-        tvMealName.hide()
+        ivMeal.gone()
+        tvMealName.gone()
         tvMealName.text = meal.name
         Glide.with(ivMeal).load(meal.thumbnail)
             .centerCrop().into(ivMeal)

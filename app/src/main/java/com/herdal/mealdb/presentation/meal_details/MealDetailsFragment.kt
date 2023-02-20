@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.herdal.mealdb.R
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentMealDetailsBinding
 import com.herdal.mealdb.domain.uimodel.MealDetailUiModel
-import com.herdal.mealdb.utils.ext.hide
-import com.herdal.mealdb.utils.ext.show
+import com.herdal.mealdb.utils.ext.collectLatestLifecycleFlow
+import com.herdal.mealdb.utils.ext.errorState
+import com.herdal.mealdb.utils.ext.loadingState
+import com.herdal.mealdb.utils.ext.successState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MealDetailsFragment : Fragment() {
@@ -42,24 +42,18 @@ class MealDetailsFragment : Fragment() {
     }
 
     private fun collectMealDetails(id: Int) = binding.apply {
-        lifecycleScope.launchWhenStarted {
-            viewModel.getMealById(id)
-            viewModel.meal.collectLatest { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        tvMealDetailsError.hide()
-                        pbMealDetails.hide()
-                    }
-                    is Resource.Success -> {
-                        tvMealDetailsError.hide()
-                        pbMealDetails.hide()
-                        setupUI(resource.data!!)
-                        containerLayout.show()
-                    }
-                    is Resource.Error -> {
-                        tvMealDetailsError.show()
-                        pbMealDetails.hide()
-                    }
+        viewModel.getMealById(id)
+        collectLatestLifecycleFlow(viewModel.meal) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    loadingState(tvMealDetailsError,pbMealDetails)
+                }
+                is Resource.Success -> {
+                    successState(tvMealDetailsError,pbMealDetails)
+                    setupUI(resource.data!!)
+                }
+                is Resource.Error -> {
+                    errorState(tvMealDetailsError,pbMealDetails)
                 }
             }
         }

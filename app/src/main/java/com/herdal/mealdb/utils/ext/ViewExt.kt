@@ -7,5 +7,9 @@ fun View.show() {
 }
 
 fun View.hide() {
+    visibility = View.INVISIBLE
+}
+
+fun View.gone() {
     visibility = View.GONE
 }

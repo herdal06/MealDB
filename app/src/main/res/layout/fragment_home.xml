@@ -42,18 +42,21 @@
             android:id="@+id/tvCategoryErrorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/error" />
+            android:text="@string/error"
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/pbCategory"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/rvCategories"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_category" />
@@ -71,13 +74,15 @@
             android:id="@+id/pbMeals"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvMealErrorMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/error" />
+            android:text="@string/error"
+            android:visibility="gone" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/rvMeals"

@@ -7,18 +7,16 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.databinding.FragmentSearchMealsBinding
 import com.herdal.mealdb.domain.uimodel.MealUiModel
 import com.herdal.mealdb.presentation.home.epoxy.MealEpoxyController
-import com.herdal.mealdb.utils.ext.hide
-import com.herdal.mealdb.utils.ext.show
+import com.herdal.mealdb.utils.ext.collectLatestLifecycleFlow
+import com.herdal.mealdb.utils.ext.errorState
+import com.herdal.mealdb.utils.ext.loadingState
+import com.herdal.mealdb.utils.ext.successState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class SearchMealsFragment : Fragment() {
@@ -52,28 +50,18 @@ class SearchMealsFragment : Fragment() {
     }
 
     private fun searchMeals(searchText: String) = binding.apply {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.searchMeals(searchText)
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.searchedMeals.collectLatest { resource ->
-                    when (resource) {
-                        is Resource.Loading -> {
-                            pbSearch.show()
-                            tvSearchError.hide()
-                            rvSearchedMeals.hide()
-                        }
-                        is Resource.Success -> {
-                            tvSearchError.hide()
-                            pbSearch.hide()
-                            rvSearchedMeals.show()
-                            mealEpoxyController.setData(resource.data)
-                        }
-                        is Resource.Error -> {
-                            tvSearchError.show()
-                            pbSearch.hide()
-                            rvSearchedMeals.hide()
-                        }
-                    }
+        viewModel.searchMeals(searchText)
+        collectLatestLifecycleFlow(viewModel.searchedMeals) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    loadingState(tvSearchError,pbSearch,rvSearchedMeals)
+                }
+                is Resource.Success -> {
+                    successState(tvSearchError,pbSearch,rvSearchedMeals)
+                    mealEpoxyController.setData(resource.data)
+                }
+                is Resource.Error -> {
+                    errorState(tvSearchError,pbSearch,rvSearchedMeals)
                 }
             }
         }
