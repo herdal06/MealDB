@@ -92,7 +92,7 @@ class SearchMealsFragment : Fragment() {
     }
 
     private fun onFavoriteIconClicked(meal: MealUiModel) {
-        TODO()
+        viewModel.favoriteIconClicked(meal)
     }
 
     override fun onDestroyView() {

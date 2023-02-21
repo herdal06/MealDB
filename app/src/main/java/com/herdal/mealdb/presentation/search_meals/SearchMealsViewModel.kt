@@ -4,14 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.herdal.mealdb.common.Resource
 import com.herdal.mealdb.domain.uimodel.MealUiModel
+import com.herdal.mealdb.domain.use_case.meal.AddOrRemoveFromFavoriteUseCase
 import com.herdal.mealdb.domain.use_case.meal.SearchMealsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchMealsViewModel @Inject constructor(
-    private val searchMealsUseCase: SearchMealsUseCase
+    private val searchMealsUseCase: SearchMealsUseCase,
+    private val addOrRemoveFromFavoriteUseCase: AddOrRemoveFromFavoriteUseCase,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     private val _searchedMeals =
@@ -33,5 +39,11 @@ class SearchMealsViewModel @Inject constructor(
                     }
                 }
             }.launchIn(viewModelScope)
+    }
+
+    fun favoriteIconClicked(meal: MealUiModel) {
+        viewModelScope.launch(dispatcher) {
+            addOrRemoveFromFavoriteUseCase.execute(meal)
+        }
     }
 }
