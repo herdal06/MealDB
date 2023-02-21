@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/bgColor"
         android:orientation="vertical"
-        android:padding="@dimen/extra_small_margin"
+        android:padding="@dimen/extra_small_padding"
         tools:context=".presentation.home.HomeFragment">
 
         <LinearLayout

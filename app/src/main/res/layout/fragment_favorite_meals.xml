@@ -5,6 +5,8 @@
     android:id="@+id/layout_favorite_meals"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
+    android:padding="@dimen/extra_small_padding"
     tools:context=".presentation.favorite_meals.FavoriteMealsFragment">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
