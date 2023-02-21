@@ -54,14 +54,14 @@ class SearchMealsFragment : Fragment() {
         collectLatestLifecycleFlow(viewModel.searchedMeals) { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    loadingState(tvSearchError,pbSearch,rvSearchedMeals)
+                    loadingState(tvSearchError, pbSearch, rvSearchedMeals)
                 }
                 is Resource.Success -> {
-                    successState(tvSearchError,pbSearch,rvSearchedMeals)
+                    successState(tvSearchError, pbSearch, rvSearchedMeals)
                     mealEpoxyController.setData(resource.data)
                 }
                 is Resource.Error -> {
-                    errorState(tvSearchError,pbSearch,rvSearchedMeals)
+                    errorState(tvSearchError, pbSearch, rvSearchedMeals)
                 }
             }
         }

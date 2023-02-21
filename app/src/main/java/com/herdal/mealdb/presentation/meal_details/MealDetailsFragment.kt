@@ -46,14 +46,14 @@ class MealDetailsFragment : Fragment() {
         collectLatestLifecycleFlow(viewModel.meal) { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    loadingState(tvMealDetailsError,pbMealDetails)
+                    loadingState(tvMealDetailsError, pbMealDetails)
                 }
                 is Resource.Success -> {
-                    successState(tvMealDetailsError,pbMealDetails)
+                    successState(tvMealDetailsError, pbMealDetails)
                     setupUI(resource.data!!)
                 }
                 is Resource.Error -> {
-                    errorState(tvMealDetailsError,pbMealDetails)
+                    errorState(tvMealDetailsError, pbMealDetails)
                 }
             }
         }
