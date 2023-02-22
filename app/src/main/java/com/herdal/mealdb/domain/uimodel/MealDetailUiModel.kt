@@ -11,6 +11,6 @@ data class MealDetailUiModel(
     val ingredient4: String,
     val ingredient5: String,
     val name: String,
-    val thumbnail: String,
+    val thumbnail: String?,
     val youtubeLink: String
 )

@@ -26,7 +26,7 @@ data class MealDetailDto(
     @Json(name = "strMeal")
     val strMeal: String,
     @Json(name = "strMealThumb")
-    val strMealThumb: String,
+    val strMealThumb: String?,
     @Json(name = "strYoutube")
     val strYoutube: String
 )
