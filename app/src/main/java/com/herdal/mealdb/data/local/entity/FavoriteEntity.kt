@@ -11,7 +11,7 @@ data class FavoriteEntity(
     @ColumnInfo(name = "strMeal")
     val name: String,
     @ColumnInfo(name = "strMealThumb")
-    val thumbnail: String,
+    val thumbnail: String?,
     @ColumnInfo(name = "is_favorite")
     val isFavorite: Boolean? = false
 )
