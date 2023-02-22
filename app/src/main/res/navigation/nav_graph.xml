@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.herdal.mealdb.presentation.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteMealsFragment"
+        android:name="com.herdal.mealdb.presentation.favorite_meals.FavoriteMealsFragment"
+        android:label="Favorite Meals"
+        tools:layout="@layout/fragment_favorite_meals" >
+        <action
+            android:id="@+id/action_favoriteMealsFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.herdal.mealdb.presentation.categories.CategoriesFragment"
+        android:label="Meal Categories"
+        tools:layout="@layout/fragment_categories" />
+    <fragment
+        android:id="@+id/searchMealsFragment"
+        android:name="com.herdal.mealdb.presentation.search_meals.SearchMealsFragment"
+        android:label="Search Meals"
+        tools:layout="@layout/fragment_search_meals" >
+        <action
+            android:id="@+id/action_searchMealsFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.herdal.mealdb.presentation.meal_details.MealDetailsFragment"
+        android:label="Meal Details"
+        tools:layout="@layout/fragment_meal_details" >
+        <argument
+            android:name="mealId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
