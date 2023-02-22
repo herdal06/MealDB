@@ -23,10 +23,7 @@ object Versions {
     const val logger = "2.2.0"
     const val timber = "5.0.1"
     const val swipe_refresh_layout = "1.1.0"
-    const val lottie = "3.4.0"
     const val leakCanary = "2.10"
     const val epoxy = "5.1.1"
     const val rvAnimators = "4.0.2"
-    const val dataStore = "1.0.0"
-    const val shimmer = "0.5.0"
 }

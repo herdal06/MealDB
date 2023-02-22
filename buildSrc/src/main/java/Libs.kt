@@ -42,8 +42,6 @@ object Libs {
     }
 
     object Storage {
-        const val dataStore = "androidx.datastore:datastore-preferences:" + Versions.dataStore
-
         object Room {
             const val ktx = "androidx.room:room-ktx:" + Versions.room
             const val runtime = "androidx.room:room-runtime:" + Versions.room
@@ -65,11 +63,6 @@ object Libs {
     object Log {
         const val logger = "com.orhanobut:logger:" + Versions.logger
         const val timber = "com.jakewharton.timber:timber:" + Versions.timber
-    }
-
-    object View {
-        const val lottie = "com.airbnb.android:lottie:" + Versions.lottie
-        const val shimmerEffect = "com.facebook.shimmer:shimmer:" + Versions.shimmer
     }
 
     object LeakDetection {

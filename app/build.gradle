@@ -73,7 +73,6 @@ dependencies {
     implementation Libs.Network.interceptor
 
     // Storage
-    implementation Libs.Storage.dataStore
     implementation Libs.Storage.Room.ktx
     implementation Libs.Storage.Room.runtime
     kapt Libs.Storage.Room.compiler
@@ -105,14 +104,4 @@ dependencies {
     // rv epoxy
     implementation Libs.RecyclerView.epoxy
     annotationProcessor Libs.RecyclerView.epoxyProcessor
-    implementation "com.airbnb.android:epoxy-databinding:5.1.1"
-    // Lottie
-    implementation Libs.View.lottie
-
-    // Shimmer effect
-    implementation Libs.View.shimmerEffect
-}
-
-kapt {
-    correctErrorTypes = true
 }
