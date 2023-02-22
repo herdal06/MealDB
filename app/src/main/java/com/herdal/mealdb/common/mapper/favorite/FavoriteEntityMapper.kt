@@ -6,14 +6,14 @@ import com.herdal.mealdb.domain.uimodel.MealUiModel
 
 class FavoriteEntityMapper : Mapper<FavoriteEntity, MealUiModel> {
     override fun toDomain(t: FavoriteEntity): MealUiModel = MealUiModel(
-        id = t.name,
+        id = t.id,
         name = t.name,
         thumbnail = t.thumbnail,
         isFavorite = t.isFavorite
     )
 
     override fun fromDomain(domainModel: MealUiModel): FavoriteEntity = FavoriteEntity(
-        id = domainModel.name,
+        id = domainModel.id,
         name = domainModel.name,
         thumbnail = domainModel.thumbnail,
         isFavorite = domainModel.isFavorite
