@@ -1,4 +1,4 @@
-<h1 align="center">Rick and Morty</h1>
+<h1 align="center">🍔 MealDB</h1>
 
 <p align="center">  
 MealDB is an android application using Free Meal API based on MVVM with a clean architecture.
